@@ -8,70 +8,71 @@
 
 import SwiftUI
 
-struct HabitItem: Identifiable, Codable {
-    var id = UUID()
-    var name: String
-    var description: String
-    var completionCount: Int
-}
-
 class Habits: ObservableObject {
-    @Published var items = [HabitItem]() {
+    @Published var habitsItems = [HabitItems]() {
         didSet {
             let encoder = JSONEncoder()
             
-            if let encoded = try? encoder.encode(items) {
-                UserDefaults.standard.set(encoded, forKey: "Items")
+            if let encoded = try? encoder.encode(habitsItems) {
+                UserDefaults.standard.set(encoded, forKey: "HabitsItems")
             }
         }
     }
     
     init() {
-        if let items = UserDefaults.standard.data(forKey: "Items") {
+        if let habits = UserDefaults.standard.data(forKey: "HabitsItems") {
             let decoder = JSONDecoder()
             
-            if let decoded = try? decoder.decode([HabitItem].self, from: items) {
-                self.items = decoded
+            if let decoded = try? decoder.decode([HabitItems].self, from: habits) {
+                self.habitsItems = decoded
                 return
             }
         }
         
-        self.items = []
+        self.habitsItems = []
     }
 }
 
 struct ContentView: View {
-    @ObservedObject private var habits = Habits()
-    @State private var showSheets = false
+    @ObservedObject var habits = Habits()
     @Environment(\.presentationMode) var presentationMode
+    @State private var showAddView = false
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(habits.items, id: \.id) { habit in
-                    NavigationLink(destination: DetailView(habitName: habit.name, detail: habit.description)) {
-                        Text("\(habit.name)")
+                ForEach(habits.habitsItems) { habit in
+                    NavigationLink(destination: HabitDetailView(habitDetail: habit.self)) {
+                        VStack(alignment: .leading) {
+                            Text("\(habit.name)")
+                                .foregroundColor(.primary)
+                                .font(.system(size: 23))
+                            
+                            Text("Times completed:  \(habit.completionAmount)")
+                                .foregroundColor(.secondary)
+                                .font(.caption)
+                        }
                     }
                 }
                 .onDelete(perform: deleteHabit)
             }
             .navigationBarTitle("Habit Tracker")
-            .navigationBarItems(leading: EditButton(), trailing:
-                Button(action: {
-                    self.showSheets.toggle()
-                }) {
-                    Image(systemName: "plus")
-                }
-            )
-                .sheet(isPresented: $showSheets) {
-                    HabitView(habits: self.habits)
+            .navigationBarItems(leading: EditButton(), trailing: Button(action: {
+                self.showAddView.toggle()
+            }) {
+                Image(systemName: "plus.circle")
+                    .font(.title)
             }
+            .sheet(isPresented: $showAddView) {
+                AddView(habit: self.habits)
+            })
+            
         }
     }
     
     func deleteHabit(at offSets: IndexSet) {
-        habits.items.remove(atOffsets: offSets)
-        habits.items = habits.items
+        habits.habitsItems.remove(atOffsets: offSets)
+        habits.habitsItems = habits.habitsItems
     }
 }
 
