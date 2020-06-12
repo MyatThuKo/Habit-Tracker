@@ -41,7 +41,7 @@ struct AddView: View {
                 if selectedType == "Habit" {
                     Section {
                         Stepper("Number of completion: \(habitCompletionCount)", value: $habitCompletionCount, in: 0...50)
-                    }.animation(.easeOut)
+                    }
                 }
             }
             .navigationBarTitle("Add New Habit", displayMode: .inline)

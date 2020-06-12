@@ -11,7 +11,10 @@ import SwiftUI
 struct HabitDetailView: View {
     @State private var angle = 0.0
     @State private var phase: CGFloat = 0
+    
+    @State private var completedAmount: Int = 0
     var habitDetail: HabitItems
+    var habit: Habits
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
@@ -25,8 +28,7 @@ struct HabitDetailView: View {
             
             if habitDetail.types == "Habit" {
                 HStack(spacing: 30) {
-                    Text("Number of completion: \(habitDetail.completionAmount)")
-                        .font(.system(size: 20))
+                    Text("Number of Completion: \(completedAmount)")
                     
                     Button(action: {
                         self.angle += 360
@@ -56,16 +58,27 @@ struct HabitDetailView: View {
             Spacer()
         }
         .navigationBarTitle("\(habitDetail.name)", displayMode: .inline)
-        .onAppear { self.phase -= 20}
+        .onAppear {
+            self.phase -= 20
+            self.completedAmount = self.habitDetail.completionAmount
+        }
     }
     
     func increaseNumber() {
-        //
+        self.completedAmount += 1
+        
+        // removing the initial item and replacing it with a copy of the item at the same index
+        if let index = self.habit.habitsItems.firstIndex(where: { $0.id == self.habitDetail.id}) {
+            self.habit.habitsItems.remove(at: index)
+            var temp = self.habitDetail
+            temp.completionAmount = self.completedAmount
+            self.habit.habitsItems.insert(temp, at: index)
+        }
     }
 }
 
 struct HabitDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        HabitDetailView(habitDetail: HabitItems.init(name: "Demo", description: "Demo description", completionAmount: 100, types: "Demo Type", date: Date()))
+        HabitDetailView(habitDetail: HabitItems.init(name: "Demo", description: "Demo description", completionAmount: 100, types: "Demo Type", date: Date()), habit: Habits())
     }
 }

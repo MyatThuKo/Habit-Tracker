@@ -42,7 +42,7 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(habits.habitsItems) { habit in
-                    NavigationLink(destination: HabitDetailView(habitDetail: habit.self)) {
+                    NavigationLink(destination: HabitDetailView(habitDetail: habit.self, habit: self.habits)) {
                         VStack(alignment: .leading) {
                             Text("\(habit.name)")
                                 .foregroundColor(.primary)
