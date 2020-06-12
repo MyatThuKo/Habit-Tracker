@@ -14,17 +14,34 @@ struct AddView: View {
     @State private var habitName = ""
     @State private var habitDescription = ""
     @State private var habitCompletionCount = 0
+    @State private var selectedType = "Journal"
+    @State private var selectedDate = Date()
+    
+    @State private var alertMessage = ""
+    @State private var showAlert = false
+    
+    var types = ["Journal", "Habit"]
     
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    TextField("Habit Name", text: $habitName)
-                    TextField("Habit Description", text: $habitDescription)
+                    TextField("Name", text: $habitName)
+                    Picker("Type", selection: $selectedType) {
+                        ForEach(types, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    
+                    DatePicker("Date: ", selection: $selectedDate)
+                    TextView(placeholderText: "Description", text: $habitDescription).frame(numLines: 15)
                 }
                 
-                Section {
-                    Stepper("Number of completion: \(habitCompletionCount)", value: $habitCompletionCount, in: 0...50)
+                if selectedType == "Habit" {
+                    Section {
+                        Stepper("Number of completion: \(habitCompletionCount)", value: $habitCompletionCount, in: 0...50)
+                    }.animation(.easeOut)
                 }
             }
             .navigationBarTitle("Add New Habit", displayMode: .inline)
@@ -34,11 +51,26 @@ struct AddView: View {
             }){
                 Text("Save")
             })
+                .alert(isPresented: $showAlert) {
+                    Alert.init(title: Text("Invalid Input"), message: Text(self.alertMessage), dismissButton: .default(Text("Okay")))
+            }
         }
     }
     
     func addNewHabit() {
-        let newHabitItem = HabitItems(name: self.habitName, description: self.habitDescription, completionAmount: self.habitCompletionCount)
+        guard !self.habitName.isEmpty else {
+            self.showAlert.toggle()
+            self.alertMessage = "Name is empty."
+            return
+        }
+        
+        guard !self.habitDescription.isEmpty else {
+            self.showAlert.toggle()
+            self.alertMessage = "Description is empty."
+            return
+        }
+        
+        let newHabitItem = HabitItems(name: self.habitName, description: self.habitDescription, completionAmount: self.habitCompletionCount, types: self.selectedType, date: self.selectedDate)
         
         self.habit.habitsItems.append(newHabitItem)
         self.habit.habitsItems = self.habit.habitsItems

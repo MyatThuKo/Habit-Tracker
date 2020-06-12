@@ -10,6 +10,7 @@
 		E24F94F42492E73D00ADA917 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24F94F32492E73D00ADA917 /* AddView.swift */; };
 		E24F94F62492EB9600ADA917 /* HabitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24F94F52492EB9600ADA917 /* HabitDetailView.swift */; };
 		E24F94F82492F0F700ADA917 /* HabitItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24F94F72492F0F700ADA917 /* HabitItem.swift */; };
+		E24F94FA2493030800ADA917 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24F94F92493030800ADA917 /* TextView.swift */; };
 		E2D3390F248C025E009FFF19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D3390E248C025E009FFF19 /* AppDelegate.swift */; };
 		E2D33911248C025E009FFF19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D33910248C025E009FFF19 /* SceneDelegate.swift */; };
 		E2D33913248C025E009FFF19 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D33912248C025E009FFF19 /* ContentView.swift */; };
@@ -22,6 +23,7 @@
 		E24F94F32492E73D00ADA917 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		E24F94F52492EB9600ADA917 /* HabitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailView.swift; sourceTree = "<group>"; };
 		E24F94F72492F0F700ADA917 /* HabitItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitItem.swift; sourceTree = "<group>"; };
+		E24F94F92493030800ADA917 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		E2D3390B248C025E009FFF19 /* Habit Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Habit Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2D3390E248C025E009FFF19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2D33910248C025E009FFF19 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 			children = (
 				E2D3390E248C025E009FFF19 /* AppDelegate.swift */,
 				E2D33910248C025E009FFF19 /* SceneDelegate.swift */,
+				E24F94F92493030800ADA917 /* TextView.swift */,
 				E24F94F72492F0F700ADA917 /* HabitItem.swift */,
 				E2D33912248C025E009FFF19 /* ContentView.swift */,
 				E24F94F32492E73D00ADA917 /* AddView.swift */,
@@ -158,6 +161,7 @@
 				E24F94F42492E73D00ADA917 /* AddView.swift in Sources */,
 				E24F94F62492EB9600ADA917 /* HabitDetailView.swift in Sources */,
 				E2D3390F248C025E009FFF19 /* AppDelegate.swift in Sources */,
+				E24F94FA2493030800ADA917 /* TextView.swift in Sources */,
 				E2D33911248C025E009FFF19 /* SceneDelegate.swift in Sources */,
 				E2D33913248C025E009FFF19 /* ContentView.swift in Sources */,
 				E24F94F82492F0F700ADA917 /* HabitItem.swift in Sources */,

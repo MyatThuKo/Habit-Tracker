@@ -13,4 +13,16 @@ struct HabitItems: Identifiable, Codable {
     var name: String
     var description: String
     var completionAmount: Int
+    var types: String
+    var date: Date?
+    
+    var formattedDate: String {
+        if let date = date {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .long
+            return formatter.string(from: date)
+        } else {
+            return "N/A"
+        }
+    }
 }

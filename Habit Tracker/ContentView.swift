@@ -48,7 +48,7 @@ struct ContentView: View {
                                 .foregroundColor(.primary)
                                 .font(.system(size: 23))
                             
-                            Text("Times completed:  \(habit.completionAmount)")
+                            Text("Date: \(habit.formattedDate)")
                                 .foregroundColor(.secondary)
                                 .font(.caption)
                         }
